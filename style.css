@@ -30,6 +30,7 @@ body, input, div {
 	top: 50%;
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
+	width:100%;
 }
 .timeline{
 	width: 100%;

@@ -120,6 +120,17 @@
 		 	setTimeout(function() {hideText();}, 2000);
 		 }
 
+
+		document.body.onkeyup = function(e){
+		    if(e.keyCode == 32){
+		    	if (document.getElementById('togglePlay').getAttribute('onclick') == "playVideo(1);") {
+		    		playVideo(1);
+		    	}else{
+		    		pauseVideo(1);
+		    	}
+		    }
+		}
+
 		document.getElementById('timeline').addEventListener('mousedown', refreshTime());
 			 
 	</script>
