@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<script src="codeObject.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript">
+		/* Check Support*/
+		function checkFileAPI() {
+		    if (window.File && window.FileReader && window.FileList && window.Blob) {reader = new FileReader();return true;} 
+		    else {alert('Browser not supported.');return false;}
+		}
+
+	</script>
+	<title>Edited Video Player</title>
+</head>
+
+<body onload="checkFileAPI();" onmousemove="showText();">
+	<div class="functionality topbar">
+		<div style="margin: 1em; opacity: 1!important; color: white!important;">
+			<h3 id="message" style="float: left;margin: 0em 3em 0em 0em;opacity: 1!important;color: white;">Movie Edit Player</h3>
+		    Video Location:<input type="file" id="localFile" accept="video/*,.mkv,.mov" onchange="createLocalFile(this)" />
+		    Code Location:<input type="file" onchange='readText(this)' /><br>
+		</div>
+	</div>
+
+	<div class="grid" id="video" style="cursor: none;" onmouseover="hideTextTimer();" onmouseenter="hideTextTimer();" onmousedown="hideText();">
+			<video src="HPtPoA.mkv" id="ve1" type='video/x-matroska; codecs="theora, vorbis"'>
+			Your browser does not support HTML5 video.
+			</video>
+		
+	</div>
+
+	<div class="editor timeline functionality">
+		<div class="functionality fullSliderContent">
+			<input type="range" class="slider" id="timeline" name="" step="any" value="0" onmouseup="refreshTime(this)">
+
+			<div class="timeline functionality">
+				<input type="range" class="slider" id="timeline edited" name=""step="any" onmouseup="calculateEditedValue(this.value,false)" value="0" disabled>
+			</div>
+
+			<div class="video" id="placeClips">
+			</div>
+		</div>
+		<div class="buttons functionality">
+			<button id="togglePlay" onclick="playVideo(1);">></button>
+			<button onclick="requestFullScreen(document.body);">[]</button>
+		</div>
+		
+	</div>
+
+	<script>
+	  	function createLocalFile(event){
+	  		var URL = window.URL || window.webkitURL;
+		    var videoNode = document.querySelector('#ve1');
+	  		var fileURL = URL.createObjectURL(document.querySelector('#localFile').files[0]);
+	  		document.querySelector('#ve1').src = fileURL;
+	  	}
+
+	  	function requestFullScreen(element) {
+	  	    // Supports most browsers and their versions.
+	  	    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+	  	    if(document.fullscreen){
+	  	    	document.exitFullscreen();
+	  	    }else{
+	  	    	if (requestMethod) { // Native full screen.
+	  	    	    requestMethod.call(element);
+	  	    	} else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+	  	    	    var wscript = new ActiveXObject("WScript.Shell");
+	  	    	    if (wscript !== null) {
+	  	    	        wscript.SendKeys("{F11}");
+	  	    	    }
+	  	    	}
+	  	    }
+
+	  	}
+
+		function hideText(){
+		 	var changeTextBody = document.getElementsByTagName('body');
+		 	var changeTextInput = document.getElementsByTagName('input');
+		 	var changeTextDiv =  document.getElementsByClassName('functionality');
+		 	document.getElementById('video').setAttribute('style','cursor:none;');
+
+		 	for (var i = changeTextBody.length - 1; i >= 0; i--) {
+		 		changeTextBody[i].setAttribute('style', '');
+		 	}
+
+		 	for (var i = changeTextInput.length - 1; i >= 0; i--) {
+		 		changeTextInput[i].setAttribute('style', '');
+		 	}
+
+		 	for (var i = changeTextDiv.length - 1; i >= 0; i--) {
+		 		changeTextDiv[i].setAttribute('style', '');
+		 	}
+		 }
+
+		 function showText(){
+		 	var changeTextBody = document.getElementsByTagName('body');
+		 	var changeTextInput = document.getElementsByTagName('input');
+		 	var changeTextDiv =  document.getElementsByClassName('functionality');
+		 	document.getElementById('video').setAttribute('style','cursor:default;');
+
+		 	for (var i = changeTextBody.length - 1; i >= 0; i--) {
+		 		changeTextBody[i].setAttribute('style', 'opacity:1!important;color:white!important;');
+		 	}
+
+		 	for (var i = changeTextInput.length - 1; i >= 0; i--) {
+		 		changeTextInput[i].setAttribute('style', 'opacity:1!important;color:white!important;');
+		 	}
+
+		 	for (var i = changeTextDiv.length - 1; i >= 0; i--) {
+		 		changeTextDiv[i].setAttribute('style', 'opacity:1!important;color:white!important;');
+		 	}
+		 }
+
+		 function hideTextTimer(){
+		 	setTimeout(function() {hideText();}, 2000);
+		 }
+
+		document.getElementById('timeline').addEventListener('mousedown', refreshTime());
+			 
+	</script>
+
+
+
+</body>
+</html>
