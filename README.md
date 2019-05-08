@@ -13,6 +13,7 @@ Syntax:
   
 	at(x).play(y);
 		When video has reached position x, go to y.
+		Time is calculated in milliseconds.
 		
 Example:
 
