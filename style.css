@@ -14,6 +14,10 @@ body, input, div {
     opacity: 0!important;
 }
 
+code {
+	margin-left: 2em;
+	display: block;
+}
 
 .grid, #ve1, #ve2, body {
 	opacity: 1!important;
@@ -105,3 +109,24 @@ body, input, div {
 .fullSliderContent{
     width: 100%;
 }
+
+#message2 {
+	opacity: 1!important;
+	color: white!important;
+	display: block;
+	position: absolute;
+	z-index: 999999;
+	background: black!important;
+	margin: 100px;
+    height: 70%;
+    overflow: scroll;
+}
+
+.message2Title {
+	display: flex;
+	opacity: 1!important; color: white!important
+}
+}
+
+
+

@@ -13,17 +13,48 @@
 		    else {alert('Browser not supported.');return false;}
 		}
 
+		function helpOff() {
+			document.getElementById('message2').setAttribute('style','opacity:0!important;');
+		}
+		function helpOn() {
+			document.getElementById('message2').setAttribute('style','opacity:1!important;');
+		}
+
 	</script>
 	<title>Edited Video Player</title>
 </head>
 
-<body onload="checkFileAPI();" onmousemove="showText();">
+<body onload="checkFileAPI();" onmousemove="showText();" style="overflow: hidden;">
 	<div class="functionality topbar">
 		<div style="margin: 1em; opacity: 1!important; color: white!important;">
 			<h3 id="message" style="float: left;margin: 0em 3em 0em 0em;opacity: 1!important;color: white;">Edited Video Player</h3>
 		    Video Location:<input type="file" id="localFile" accept="video/*,.mkv,.mov" onchange="createLocalFile(this)" />
-		    Code Location:<input type="file" onchange='readText(this)' /><br>
+		    Code Location:<input type="file" onchange='readText(this)' />
+		    <button onclick="helpOn()">help</button><br>
 		</div>
+	</div>
+
+	<div id="message2">
+		<div class="functionality message2Title" style="display: flex;"><h1 style="width: 100%;">Edited Video Player - Chrome Experiment</h1><button onclick="helpOff()" style="margin: 3em;">close</button></div>
+		<p>This is a client-side web based video player for the chrome browser that allows you to play 'code' that represents the fan edit of a video. Please note that you need to import the video first before importing the code for that video.</p>
+
+		<p>File Extension:</p>
+
+		<code>.fv</code>
+		<p>Syntax:</p>
+
+		<code>title('Title of video');<br>
+
+		at(x).play(y);<br>
+			When video has reached position x, go to y.<br>
+			Time is calculated in milliseconds.</code><br>
+		<p>Example:</p>
+
+		<code>title('My First Video Edit');<br>
+		at(0).play(240);<br>
+		at(250).play(300);<br>
+		at(310).play(600);<br>
+		at(620).play(8500);</code><br>
 	</div>
 
 	<div class="grid" id="video" style="cursor: none;" onmouseover="hideTextTimer();" onmouseenter="hideTextTimer();" onmousedown="hideText();">
@@ -129,7 +160,11 @@
 		    		pauseVideo(1);
 		    	}
 		    }
+		    if(e.keyCode == 70){
+		    	requestFullScreen(document.body);
+		    }
 		}
+
 
 		document.getElementById('timeline').addEventListener('mousedown', refreshTime());
 			 
